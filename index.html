@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xnote — köşende duran hızlı not, ajanda ve kur paneli</title>
+<meta name="description" content="Xnote, Windows masaüstünün köşesinde duran hızlı not, hatırlatma, ajanda ve döviz kuru paneli. Ücretsiz indir.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+@font-face { font-family: "Xnote Wordmark"; src: url("assets/playfair-display-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+:root { --green: #1F6A4B; --green-d: #17513a; --gold: #C9A23A; --gold-l: #F0D98C; --bg: #F6F5F1; --card: #FFFFFF; --ink: #1D1D1F; --muted: #5C5C61; --line: #E4E1D8; --soft: #ECEAE3; }
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: Inter, "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+a { color: var(--green); }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.wm { font-family: "Xnote Wordmark", Georgia, serif; font-weight: 700; letter-spacing: 0; }
+.wm span { color: var(--green); }
+
+header { padding: 18px 0; }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-size: 26px; }
+.brand img { width: 36px; height: 36px; }
+.nav-links { display: flex; gap: 22px; font-size: 14.5px; }
+.nav-links a { color: var(--muted); text-decoration: none; padding: 10px 2px; }
+.nav-links a:hover { color: var(--ink); }
+
+.hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; padding: 40px 0 72px; }
+.kicker { font-size: 12.5px; font-weight: 600; letter-spacing: 1.6px; color: var(--green); }
+h1 { font-size: clamp(34px, 5vw, 54px); line-height: 1.08; letter-spacing: -1px; margin-top: 14px; }
+.lead { margin-top: 18px; font-size: 18px; color: var(--muted); max-width: 30em; }
+.cta { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 26px; background: var(--green); color: #fff; font-size: 16px; font-weight: 600; text-decoration: none; transition: background .15s; }
+.btn:hover { background: var(--green-d); }
+.btn svg { width: 18px; height: 18px; }
+.meta { font-size: 13.5px; color: var(--muted); }
+.hero-art { display: flex; justify-content: center; }
+.hero-art img { width: min(380px, 100%); filter: drop-shadow(0 24px 40px rgba(20, 50, 35, .22)); }
+
+section { padding: 72px 0; }
+.band { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+h2 { font-size: clamp(26px, 3.4vw, 36px); letter-spacing: -.6px; line-height: 1.15; }
+.sub { margin-top: 10px; color: var(--muted); font-size: 17px; max-width: 36em; }
+.grid { margin-top: 36px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.feat { background: var(--bg); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+.feat h3 { font-size: 17px; margin-top: 14px; }
+.feat p { margin-top: 6px; font-size: 14.5px; color: var(--muted); }
+.ico { width: 40px; height: 40px; border-radius: 12px; background: var(--green); display: grid; place-items: center; }
+.ico svg { width: 20px; height: 20px; fill: none; stroke: var(--gold-l); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.split img { border-radius: 4px; }
+.quick-shot { background: var(--green); border-radius: 22px; padding: 48px 20px; display: grid; place-items: center; }
+.quick-shot img { width: min(520px, 100%); }
+kbd { font: 600 13px Inter, sans-serif; padding: 3px 9px; border-radius: 7px; background: var(--soft); border: 1px solid var(--line); color: #3a3a3d; white-space: nowrap; }
+.keys { margin-top: 22px; display: grid; gap: 12px; padding: 0; list-style: none; }
+.keys li { display: flex; align-items: center; gap: 12px; font-size: 15.5px; }
+.keys span.k { display: inline-flex; gap: 5px; min-width: 150px; }
+
+.steps { margin-top: 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; padding: 0; list-style: none; }
+.steps li { counter-increment: s; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px; font-size: 15px; color: var(--muted); }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--gold); color: #fff; font-weight: 700; margin-bottom: 12px; }
+.steps b { color: var(--ink); display: block; font-size: 16.5px; margin-bottom: 4px; }
+.note { margin-top: 20px; font-size: 14px; color: var(--muted); max-width: 46em; }
+
+.dark-shot { background: #1b1c1e; border-radius: 22px; padding: 36px 20px; display: grid; place-items: center; }
+.dark-shot img { width: min(340px, 100%); }
+.facts { margin-top: 22px; display: grid; gap: 10px; padding: 0; list-style: none; font-size: 15.5px; }
+.facts li { display: flex; gap: 12px; }
+.facts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); margin-top: 9px; flex: none; }
+
+footer { padding: 36px 0 48px; font-size: 13.5px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 860px) {
+  .hero, .split { grid-template-columns: 1fr; gap: 36px; }
+  .hero { padding-top: 16px; }
+  .grid, .steps { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  section { padding: 52px 0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand wm" href="#" aria-label="Xnote"><img src="assets/logo.svg" alt=""><span style="color:inherit"><span>X</span>note</span></a>
+    <nav class="nav-links" aria-label="Sayfa içi">
+      <a href="#ozellikler">Özellikler</a>
+      <a href="#kisayollar">Kısayollar</a>
+      <a href="#kurulum">Kurulum</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <div class="kicker">WINDOWS İÇİN · ÜCRETSİZ</div>
+      <h1>Aklına geldiği an yaz. Gerisini <span class="wm"><span>X</span>note</span> hatırlar.</h1>
+      <p class="lead">Masaüstünün köşesinde duran not, hatırlatma, ajanda ve döviz kuru paneli. Açmak için uygulama aramazsın, hep oradadır.</p>
+      <div class="cta">
+        <a class="btn" id="dl" href="https://github.com/iberktansal181/xnote/releases/latest/download/Xnote-Setup.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
+          Windows için indir
+        </a>
+        <span class="meta" id="ver">Windows 10 ve 11 · 64 bit</span>
+      </div>
+    </div>
+    <div class="hero-art"><img src="assets/panel-acik.png" width="760" height="1320" alt="Xnote paneli: üstte yeşil kadranlı saat, altında bekleyen notlar"></div>
+  </div>
+
+  <section class="band" id="ozellikler">
+    <div class="wrap">
+      <h2>Küçük bir panel, yerinde duran işler</h2>
+      <p class="sub">Not almak için başka bir pencereye geçmen gerekmez. Xnote işin bittiğinde arkaya çekilir.</p>
+      <div class="grid">
+        <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div><h3>Yaz, Enter'a bas</h3><p>Hızlı not kutusu hangi programda olursan ol ekranın ortasında açılır. Yazamıyorsan mikrofona söyle.</p></div>
+        <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7 2.5 7h-17S6 15 6 9zM10 20a2 2 0 0 0 4 0"/></svg></div><h3>Hatırlatma ve alarm</h3><p>Nota saat ver; vakti gelince Windows bildirimi çıkar ve kısa bir zil çalar. İstersen her gün, her hafta ya da her ay tekrarlanır.</p></div>
+        <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></div><h3>Ajanda ve arşiv</h3><p>Takvimden bir güne tıkla, o gün ne yazdığını gör. Tamamlanan notlar silinmez, arşivde kalır.</p></div>
+        <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></div><h3>Kur ve çevirici</h3><p>Merkez Bankası'nın euro ve dolar satış kuru panelin üstünde durur. Tıkla, tutarı yaz, karşılığını gör.</p></div>
+        <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><rect x="14" y="10" width="5" height="5" rx="1"/></svg></div><h3>Masaüstü widget'ı</h3><p>Görev çubuğunda yer kaplamaz, pencerelerin arkasında masaüstünde durur. Birden çok ekranın varsa hangisinin hangi köşesinde duracağını sen seçersin.</p></div>
+        <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg></div><h3>Notların sende</h3><p>Her şey kendi bilgisayarında saklanır, hesap açmak gerekmez. Günlük otomatik yedek alınır, notlar Excel'e aktarılabilir.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kisayollar">
+    <div class="wrap split">
+      <div>
+        <h2>İki kısayol yeter</h2>
+        <p class="sub">Fareye uzanmadan not al, paneli çağır, işine dön.</p>
+        <ul class="keys">
+          <li><span class="k"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>N</kbd></span> Hızlı not kutusu</li>
+          <li><span class="k"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>M</kbd></span> Paneli aç ya da gizle</li>
+          <li><span class="k"><kbd>Ctrl</kbd><kbd>F</kbd></span> Notlarda ara</li>
+        </ul>
+      </div>
+      <div class="quick-shot"><img src="assets/hizli-not.png" width="1160" height="192" alt="Hızlı not kutusu: içinde yazılmakta olan bir not"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div class="dark-shot"><img src="assets/panel-koyu.png" width="760" height="1320" alt="Xnote paneli koyu temada"></div>
+      <div>
+        <h2>Senin masaüstüne uyar</h2>
+        <p class="sub">Açık ya da koyu tema, dört vurgu rengi. Panel açılırken yaslandığı köşeden büyür, kapanırken oraya çekilir.</p>
+        <ul class="facts">
+          <li>Windows açılışında kendiliğinden hazır olur.</li>
+          <li>Üç gündür bekleyen notu turuncuyla öne çıkarır.</li>
+          <li>Önemli notu listenin tepesine sabitlersin.</li>
+          <li>Yeni sürüm çıktığında kendisi indirir, sana sorup kurar.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="kurulum">
+    <div class="wrap">
+      <h2>Kurulum bir dakika sürer</h2>
+      <ol class="steps">
+        <li><b>İndir</b>Kurulum dosyası yaklaşık 75 MB. Diskte 230 MB yer tutar.</li>
+        <li><b>Kur</b>Dosyayı çalıştır, "Kur" düğmesine bas. Kurulum yerini istersen değiştirebilirsin.</li>
+        <li><b>Yaz</b>Panel ekranın köşesinde açılır. <kbd>Ctrl</kbd> <kbd>Alt</kbd> <kbd>N</kbd> ile ilk notunu al.</li>
+      </ol>
+      <p class="note">Xnote henüz dijital imza taşımıyor. Bu yüzden Windows ilk çalıştırmada mavi bir uyarı gösterebilir; "Ek bilgi" bağlantısına, ardından "Yine de çalıştır" düğmesine basarak devam edebilirsin. Kaldırmak istediğinde Windows'un "Uygulamalar" listesinden kaldırırsın; program, notlar ve ayarlar birlikte silinir.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/iberktansal181/xnote/releases/latest/download/Xnote-Setup.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
+          Xnote'u indir
+        </a>
+        <span class="meta" id="notes"></span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><span class="wm" style="font-size:17px;color:#1D1D1F"><span>X</span>note</span> · Windows için not ve ajanda paneli</span>
+    <span id="foot-ver"></span>
+  </div>
+</footer>
+
+<script>
+// Son sürüm bilgisini aynı sitedeki latest.json dosyasından okur (uygulama da güncelleme için bu dosyaya bakar).
+fetch('latest.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+  if (!d || !d.version) return;
+  var mb = d.size ? ' · ' + Math.round(d.size / 1048576) + ' MB' : '';
+  document.getElementById('ver').textContent = 'Sürüm ' + d.version + mb + ' · Windows 10 ve 11';
+  document.getElementById('foot-ver').textContent = 'Sürüm ' + d.version + (d.date ? ' · ' + d.date.split('-').reverse().join('.') : '');
+  if (d.notes) document.getElementById('notes').textContent = 'Bu sürümde: ' + d.notes;
+}).catch(function () {});
+</script>
+</body>
+</html>

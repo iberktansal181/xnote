@@ -103,7 +103,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <h1>Aklına geldiği an yaz. Gerisini <span class="wm"><span>X</span>note</span> hatırlar.</h1>
       <p class="lead">Masaüstünün köşesinde duran not, hatırlatma, ajanda ve döviz kuru paneli. Açmak için uygulama aramazsın, hep oradadır.</p>
       <div class="cta">
-        <a class="btn" id="dl" href="https://github.com/iberktansal181/xnote/releases/latest/download/Xnote-Setup.exe">
+        <a class="btn dl" id="dl" href="downloads/Xnote-Setup-1.4.2.exe">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
           Windows için indir
         </a>
@@ -169,7 +169,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </ol>
       <p class="note">Xnote henüz dijital imza taşımıyor. Bu yüzden Windows ilk çalıştırmada mavi bir uyarı gösterebilir; "Ek bilgi" bağlantısına, ardından "Yine de çalıştır" düğmesine basarak devam edebilirsin. Kaldırmak istediğinde Windows'un "Uygulamalar" listesinden kaldırırsın; program, notlar ve ayarlar birlikte silinir.</p>
       <div class="cta">
-        <a class="btn" href="https://github.com/iberktansal181/xnote/releases/latest/download/Xnote-Setup.exe">
+        <a class="btn dl" href="downloads/Xnote-Setup-1.4.2.exe">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
           Xnote'u indir
         </a>
@@ -193,6 +193,8 @@ fetch('latest.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.
   var mb = d.size ? ' · ' + Math.round(d.size / 1048576) + ' MB' : '';
   document.getElementById('ver').textContent = 'Sürüm ' + d.version + mb + ' · Windows 10 ve 11';
   document.getElementById('foot-ver').textContent = 'Sürüm ' + d.version + (d.date ? ' · ' + d.date.split('-').reverse().join('.') : '');
+  // İndirme düğmeleri her zaman son sürümün dosyasını gösterir.
+  if (d.url) Array.prototype.forEach.call(document.querySelectorAll('a.dl'), function (el) { el.href = d.url; });
   if (d.notes) document.getElementById('notes').textContent = 'Bu sürümde: ' + d.notes;
 }).catch(function () {});
 </script>
